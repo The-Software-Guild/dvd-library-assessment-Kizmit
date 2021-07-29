@@ -1,15 +1,17 @@
 package com.jdm.dvdlibrary.dto;
 
+
+
 /**
  *
  * @author Joe McAdams
  * @email joedmcadams@gmail.com
  * 
  */
-public class DVDLibrary {
+public class DVD {
     private String title, director, studio, note, mpaaRating, releaseDate;
     
-    public DVDLibrary(String title, String director, String studio, 
+    public DVD(String title, String director, String studio, 
             String note, String mpaaRating, String releaseDate){
         this.title = title;
         this.director = director;

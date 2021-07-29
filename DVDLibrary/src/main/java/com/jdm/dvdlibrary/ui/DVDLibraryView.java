@@ -6,6 +6,9 @@
 
 package com.jdm.dvdlibrary.ui;
 
+import com.jdm.dvdlibrary.dto.DVD;
+import java.util.List;
+
 /**
  *
  * @author Joe McAdams
@@ -34,5 +37,46 @@ public class DVDLibraryView {
     public void printMenuBanner(){
         System.out.println("=======Menu=======");
     }
+
+    public void printAddDVDBanner() {
+        System.out.println("=======ENTER DVD DETAILS=======");
+    }
     
+    public void printAddDVDSuccessBanner() {
+        System.out.println("=======DVD ADDED=======");
+    }
+    
+    public void printViewLibraryBanner() {
+        System.out.println("=======DVD LIBRARY=======");
+    }
+    
+    public void printRemoveDVDBanner() {
+        System.out.println("=======DVD REMOVAL=======");
+    }
+
+    public void printRemoveSuccess(DVD removedDvd) {
+        System.out.println("DVD \"" + removedDvd.getTitle() + "\" removed");
+    }
+     /*ORDER OF ELEMENTS FOR TEXTFILE/CONSTRUCTOR:
+    title::director::studio::note::mpaaRating::releaseDate
+    */
+    public DVD createNewDVD(){
+        DVD dvd = new DVD(io.readString("Title:"), io.readString("Director:"), io.readString("Studio:")
+                          , io.readString("Note:"), io.readString("MPAA Rating:"), io.readString("Release Date:"));
+        return dvd;
+    }
+
+
+    public void printLibraryList(List<DVD> dvdList) {
+        System.out.printf("%-35s%-25s%-25s%-25s%-25s%-25s\n", "Title", "Director", "Studio", "Note", "MPAA Rating", "Release Date");
+        for(DVD dvd : dvdList){
+            System.out.printf("%-35s%-25s%-25s%-25s%-25s%-25s\n", dvd.getTitle(), dvd.getDirector(), dvd.getStudio()
+                              ,dvd.getNote(), dvd.getMpaaRating(), dvd.getReleaseDate());
+        }
+    }
+
+    public String getTitleFromUser() {
+        String title = io.readString("Enter the title of the DVD you want to remove: ");
+        return title;
+    }
 }

@@ -1,9 +1,11 @@
 package com.jdm.dvdlibrary.controller;
 
+import com.jdm.dvdlibrary.dto.DVD;
 import com.jdm.dvdlibrary.ui.DVDLibraryView;
 import com.jdm.dvdlibrary.ui.UserIO;
 import com.jdm.dvdlibrary.ui.UserIOConsoleImpl;
 import com.jdm.dvdlibrarydao.DVDLibraryDao;
+import java.util.List;
 
 /**
  *
@@ -24,7 +26,7 @@ public class DVDLibraryController {
         boolean exit = false;
         int menuSelection;
         
-        //Populate program with DVDs from file
+        dao.loadDVDMap();
         
         while(!exit){
             menuSelection = getMenuSelection();
@@ -40,7 +42,7 @@ public class DVDLibraryController {
                     editEntry();
                     break;
                 case 4:
-                    //display list of dvds
+                    viewLibrary();
                     break;
                 case 5:
                     //Get info on a DVD
@@ -49,9 +51,12 @@ public class DVDLibraryController {
                     //Search for a DVD
                     break;
                 case 7:
-                    //quit       
+                    exit = true;
+                    break;    
             }
         }
+        
+        dao.saveDVDMapToFile();
     }
 
     private int getMenuSelection() {
@@ -60,7 +65,10 @@ public class DVDLibraryController {
     }
 
     private void addDVD() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        view.printAddDVDBanner();
+        DVD newDvd = view.createNewDVD();
+        dao.addDVD(newDvd);
+        view.printAddDVDSuccessBanner();
     }
 
     private void editEntry() {
@@ -68,6 +76,15 @@ public class DVDLibraryController {
     }
 
     private void removeDVD() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        view.printRemoveDVDBanner();
+        String dvdTitle = view.getTitleFromUser();
+        DVD removedDvd = dao.removeDVD(dvdTitle);
+        view.printRemoveSuccess(removedDvd);
+    }
+
+    private void viewLibrary() {
+        view.printViewLibraryBanner();
+        List<DVD> dvdList = dao.getDVDList();
+        view.printLibraryList(dvdList);
     }
 }

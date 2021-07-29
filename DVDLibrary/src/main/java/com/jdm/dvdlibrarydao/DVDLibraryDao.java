@@ -1,5 +1,8 @@
 package com.jdm.dvdlibrarydao;
 
+import com.jdm.dvdlibrary.dto.DVD;
+import java.util.List;
+
 /**
  *
  * @author Joe McAdams
@@ -7,17 +10,17 @@ package com.jdm.dvdlibrarydao;
  */
 public interface DVDLibraryDao {
     
-    public void populateDVDMap();
+    public void loadDVDMap();
     
     public void saveDVDMapToFile();
     
-    public void addDVD();
+    public void addDVD(DVD dvd);
     
-    public void removeDVD();
+    public DVD removeDVD(String dvdTitle);
     
     public void editDVD(String dvdName);
     
-    public void listDVDMap();
+    public List<DVD> getDVDList();
     
     public void displayDVDInfo(String dvdName);
     
