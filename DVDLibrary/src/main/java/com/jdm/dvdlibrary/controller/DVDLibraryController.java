@@ -5,6 +5,7 @@ import com.jdm.dvdlibrary.ui.DVDLibraryView;
 import com.jdm.dvdlibrary.ui.UserIO;
 import com.jdm.dvdlibrary.ui.UserIOConsoleImpl;
 import com.jdm.dvdlibrarydao.DVDLibraryDao;
+import com.jdm.dvdlibrarydao.DVDLibraryDaoException;
 import java.util.List;
 
 /**
@@ -25,38 +26,41 @@ public class DVDLibraryController {
     public void run(){
         boolean exit = false;
         int menuSelection;
-        
-        dao.loadDVDMap();
-        
-        while(!exit){
-            menuSelection = getMenuSelection();
-            
-            switch(menuSelection){
-                case 1: 
-                    addDVD();
-                    break;
-                case 2:
-                    removeDVD();
-                    break;
-                case 3:
-                    editEntry();
-                    break;
-                case 4:
-                    viewLibrary();
-                    break;
-                case 5:
-                    //Get info on a DVD
-                    break;
-                case 6:
-                    //Search for a DVD
-                    break;
-                case 7:
-                    exit = true;
-                    break;    
+        try{
+            dao.loadDVDMap();
+            while(!exit){
+                menuSelection = getMenuSelection();
+
+                switch(menuSelection){
+                    case 1: 
+                        addDVD();
+                        break;
+                    case 2:
+                        removeDVD();
+                        break;
+                    case 3:
+                        editEntry();
+                        break;
+                    case 4:
+                        viewLibrary();
+                        break;
+                    case 5:
+                        getDVDInfo();
+                        break;
+                    case 6:
+                        searchForDVD();
+                        break;
+                    case 7:
+                        exit = true;
+                        break;    
+                }
             }
-        }
         
         dao.saveDVDMapToFile();
+        }
+        catch(DVDLibraryDaoException e){
+            view.displayErrorMessage(e.getMessage());
+        }
     }
 
     private int getMenuSelection() {
@@ -64,18 +68,27 @@ public class DVDLibraryController {
         return view.printMenuGetSelection();
     }
 
-    private void addDVD() {
+    private void addDVD(){
         view.printAddDVDBanner();
         DVD newDvd = view.createNewDVD();
         dao.addDVD(newDvd);
         view.printAddDVDSuccessBanner();
     }
 
-    private void editEntry() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void editEntry(){
+        view.printEditDVDBanner();
+        String dvdTitle;
+        boolean contains = dao.searchForDVD(dvdTitle = view.getTitleFromUser());
+        if(contains){
+            dao.editDVD((dvdTitle), view.getFieldFromUser(), view.getUpdatedFieldDataFromUser());
+            view.printEditDVDSuccess();
+        }
+        else{
+            view.printEditDVDFailure();
+        }
     }
 
-    private void removeDVD() {
+    private void removeDVD(){
         view.printRemoveDVDBanner();
         String dvdTitle = view.getTitleFromUser();
         DVD removedDvd = dao.removeDVD(dvdTitle);
@@ -86,5 +99,18 @@ public class DVDLibraryController {
         view.printViewLibraryBanner();
         List<DVD> dvdList = dao.getDVDList();
         view.printLibraryList(dvdList);
+    }
+
+    private void getDVDInfo(){
+        view.printGetDVDInfoBanner();
+        DVD dvd = dao.getDVDInfo(view.getTitleFromUser());
+        view.printDVDInfo(dvd);
+    }
+
+    private void searchForDVD(){
+        boolean found = false;
+        view.printSearchBanner();
+        found = dao.searchForDVD(view.getTitleFromUser());
+        view.printSearchSucces(found);
     }
 }

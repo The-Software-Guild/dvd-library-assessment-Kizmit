@@ -31,20 +31,19 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao{
     private Map<String, DVD> dvdLibrary = new HashMap<>();
     
     @Override
-    public void addDVD(DVD dvd) {
-        loadDVDMap();
+    public void addDVD(DVD dvd){
         dvdLibrary.put(dvd.getTitle(), dvd);
     }
 
     @Override
-    public void loadDVDMap() {
+    public void loadDVDMap() throws DVDLibraryDaoException{
         Scanner scanner = null;
         
         try{
             scanner = new Scanner(new BufferedReader(new FileReader(DVD_LIBRARY_FILE)));
         }
         catch(FileNotFoundException e){
-            //Handle exception
+            throw new DVDLibraryDaoException("Couldn't read DVD information.");
         }
         
         String currentLine;
@@ -61,14 +60,14 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao{
     }
 
     @Override
-    public void saveDVDMapToFile() {
+    public void saveDVDMapToFile() throws DVDLibraryDaoException{
         PrintWriter out = null;
         
         try{
             out = new PrintWriter(new FileWriter(DVD_LIBRARY_FILE));
         }
         catch (IOException e){
-            //Handle exception
+            throw new DVDLibraryDaoException("Couldn't save DVD information.");
         }
         
         String dvdText;
@@ -84,13 +83,36 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao{
     }
 
     @Override
-    public DVD removeDVD(String dvdTitle) {
+    public DVD removeDVD(String dvdTitle){
         return dvdLibrary.remove(dvdTitle);
     }
 
     @Override
-    public void editDVD(String dvdName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean editDVD(String dvdName, int field, String updatedInfo){
+        DVD dvd = dvdLibrary.get(dvdName);
+        switch (field){
+            case 1:
+                dvd.setTitle(updatedInfo);
+                break;
+            case 2:
+                dvd.setDirector(updatedInfo);
+                break;
+            case 3:
+                dvd.setStudio(updatedInfo);
+                break;
+            case 4:
+                dvd.setNote(updatedInfo);
+                break;
+            case 5:
+                dvd.setMpaaRating(updatedInfo);
+                break;
+            case 6:
+                dvd.setReleaseDate(updatedInfo);
+                break;
+            default:
+                break;
+        }
+        return true;
     }
 
     @Override
@@ -100,13 +122,14 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao{
     }
 
     @Override
-    public void displayDVDInfo(String dvdName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public DVD getDVDInfo(String dvdName){
+        return dvdLibrary.get(dvdName);
     }
 
     @Override
-    public void searchForDVD(String dvdName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean searchForDVD(String dvdName) {
+        boolean found = dvdLibrary.containsKey(dvdName);
+        return found;
     }
 
     public DVD unmarshallDVD(String dvdAsText) {

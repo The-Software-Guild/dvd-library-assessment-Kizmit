@@ -10,20 +10,20 @@ import java.util.List;
  */
 public interface DVDLibraryDao {
     
-    public void loadDVDMap();
+    public void loadDVDMap() throws DVDLibraryDaoException;
     
-    public void saveDVDMapToFile();
+    public void saveDVDMapToFile() throws DVDLibraryDaoException;
     
     public void addDVD(DVD dvd);
     
     public DVD removeDVD(String dvdTitle);
     
-    public void editDVD(String dvdName);
+    public boolean editDVD(String dvdName, int field, String updatedInfo);
     
     public List<DVD> getDVDList();
     
-    public void displayDVDInfo(String dvdName);
+    public DVD getDVDInfo(String dvdName);
     
-    public void searchForDVD(String dvdName);
+    public boolean searchForDVD(String dvdName);
 
 }

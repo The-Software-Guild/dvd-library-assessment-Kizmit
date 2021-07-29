@@ -25,6 +25,10 @@ public class DVD {
         return this.title;
     }
     
+    public void setTitle(String title){
+       this.title = title;
+    }
+    
     public String getDirector(){
         return this.director;
     }
