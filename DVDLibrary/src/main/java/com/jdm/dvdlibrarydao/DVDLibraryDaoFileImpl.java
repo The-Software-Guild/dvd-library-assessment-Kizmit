@@ -1,6 +1,6 @@
 package com.jdm.dvdlibrarydao;
 
-import com.jdm.dvdlibrary.dto.DVD;
+import com.jdm.dvdlibrary.dto.Dvd;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -18,33 +18,33 @@ import java.util.Scanner;
  * @email joedmcadams@gmail.com
  */
 
-public class DVDLibraryDaoFileImpl implements DVDLibraryDao{
+public class DvdLibraryDaoFileImpl implements DvdLibraryDao{
     public static final String DVD_LIBRARY_FILE = "DVDLibrary.txt";
     public static final String DELIMITER = "::";
-    private Map<String, DVD> dvdLibrary = new HashMap<>();
+    private Map<String, Dvd> dvdLibrary = new HashMap<>();
     
     @Override
-    public void addDVD(DVD dvd){
+    public void addDvd(Dvd dvd){
         dvdLibrary.put(dvd.getTitle(), dvd);
     }
 
     @Override
-    public void loadDVDMap() throws DVDLibraryDaoException{
+    public void loadDvdMap() throws DvdLibraryDaoException{
         Scanner scanner = null;
         
         try{
             scanner = new Scanner(new BufferedReader(new FileReader(DVD_LIBRARY_FILE)));
         }
         catch(FileNotFoundException e){
-            throw new DVDLibraryDaoException("Couldn't read DVD information.");
+            throw new DvdLibraryDaoException("Couldn't read DVD information.");
         }
         
         String currentLine;
-        DVD dvd;
+        Dvd dvd;
         
         while(scanner.hasNextLine()){
             currentLine = scanner.nextLine();
-            dvd = unmarshallDVD(currentLine);
+            dvd = unmarshallDvd(currentLine);
             
             dvdLibrary.put(dvd.getTitle(), dvd);
         }
@@ -53,21 +53,21 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao{
     }
 
     @Override
-    public void saveDVDMapToFile() throws DVDLibraryDaoException{
+    public void saveDvdMapToFile() throws DvdLibraryDaoException{
         PrintWriter out = null;
         
         try{
             out = new PrintWriter(new FileWriter(DVD_LIBRARY_FILE));
         }
         catch (IOException e){
-            throw new DVDLibraryDaoException("Couldn't save DVD information.");
+            throw new DvdLibraryDaoException("Couldn't save DVD information.");
         }
         
         String dvdText;
-        List<DVD> dvdList = this.getDVDList();
+        List<Dvd> dvdList = this.getDvdList();
         
-        for(DVD dvd : dvdList){
-            dvdText = marshallDVD(dvd);
+        for(Dvd dvd : dvdList){
+            dvdText = marshallDvd(dvd);
             out.println(dvdText);
             out.flush();
         }
@@ -76,13 +76,13 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao{
     }
 
     @Override
-    public DVD removeDVD(String dvdTitle){
-        return dvdLibrary.remove(dvdTitle);
+    public Dvd removeDvd(String dvdName){
+        return dvdLibrary.remove(dvdName);
     }
 
     @Override
-    public boolean editDVD(String dvdName, int field, String updatedInfo){
-        DVD dvd = dvdLibrary.get(dvdName);
+    public boolean editDvd(String dvdName, int field, String updatedInfo){
+        Dvd dvd = dvdLibrary.get(dvdName);
         switch (field){
             case 1:
                 dvd.setTitle(updatedInfo);
@@ -109,25 +109,25 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao{
     }
 
     @Override
-    public List<DVD> getDVDList() {
-        List<DVD> dvdList = new ArrayList<DVD>(dvdLibrary.values());
+    public List<Dvd> getDvdList() {
+        List<Dvd> dvdList = new ArrayList<>(dvdLibrary.values());
         return dvdList;
     }
 
     @Override
-    public DVD getDVDInfo(String dvdName){
+    public Dvd getDvdInfo(String dvdName){
         return dvdLibrary.get(dvdName);
     }
 
     @Override
-    public boolean searchForDVD(String dvdName) {
+    public boolean searchForDvd(String dvdName) {
         boolean found = dvdLibrary.containsKey(dvdName);
         return found;
     }
 
-    public DVD unmarshallDVD(String dvdAsText) {
+    public Dvd unmarshallDvd(String dvdAsText) {
         String[] dvdTokens = dvdAsText.split(DELIMITER);
-        DVD dvdFromFile = new DVD(dvdTokens[0], dvdTokens[1], dvdTokens[2], 
+        Dvd dvdFromFile = new Dvd(dvdTokens[0], dvdTokens[1], dvdTokens[2], 
             dvdTokens[3], dvdTokens[4], dvdTokens[5]);
         return dvdFromFile;
     }
@@ -135,7 +135,7 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao{
     /*ORDER OF ELEMENTS FOR TEXTFILE/CONSTRUCTOR:
     title::director::studio::note::mpaaRating::releaseDate
     */
-    public String marshallDVD(DVD dvd)
+    public String marshallDvd(Dvd dvd)
     {
         String dvdText = dvd.getTitle() + DELIMITER + dvd.getDirector() + DELIMITER + dvd.getStudio()
                 + DELIMITER + dvd.getNote() + DELIMITER + dvd.getMpaaRating() + DELIMITER + dvd.getReleaseDate();

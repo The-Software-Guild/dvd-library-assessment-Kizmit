@@ -1,6 +1,6 @@
 package com.jdm.dvdlibrary.ui;
 
-import com.jdm.dvdlibrary.dto.DVD;
+import com.jdm.dvdlibrary.dto.Dvd;
 import java.util.InputMismatchException;
 
 import java.util.List;
@@ -10,10 +10,10 @@ import java.util.List;
  * @email joedmcadams@gmail.com
  */
 
-public class DVDLibraryView {
+public class DvdLibraryView {
     private final UserIO io;
     
-    public DVDLibraryView(UserIO io){
+    public DvdLibraryView(UserIO io){
         this.io = io;
     }
     
@@ -47,7 +47,7 @@ public class DVDLibraryView {
     public void printRemoveDVDBanner() {
         System.out.println("==========DVD REMOVAL==========");
     }
-    public void printRemoveSuccess(DVD removedDvd){
+    public void printRemoveSuccess(Dvd removedDvd){
         System.out.println("DVD \"" + removedDvd.getTitle() + "\" removed.");
     }
     public void printRemoveFailure() {
@@ -77,7 +77,7 @@ public class DVDLibraryView {
     public void printGetDVDInfoBanner() {
         System.out.println("=====GETTING DVD INFORMATION=====");
     }
-    public void printDVDInfo(DVD dvd){
+    public void printDVDInfo(Dvd dvd){
         io.print("Title: " + dvd.getTitle());
         io.print("Director: " + dvd.getDirector());
         io.print("Studio: " + dvd.getStudio());
@@ -89,15 +89,15 @@ public class DVDLibraryView {
         System.out.println("Failed to get information on DVD; it doesn't exist in the collection.");
     }
  
-    public DVD createNewDVD(){
-        DVD dvd = new DVD(io.readString("Title:"), io.readString("Director:"), io.readString("Studio:")
+    public Dvd createNewDVD(){
+        Dvd dvd = new Dvd(io.readString("Title:"), io.readString("Director:"), io.readString("Studio:")
                           , io.readString("Note:"), io.readString("MPAA Rating:"), io.readString("Release Date:"));
         return dvd;
     }
 
-    public void printLibraryList(List<DVD> dvdList) {
+    public void printLibraryList(List<Dvd> dvdList) {
         System.out.printf("%-35s%-25s%-25s%-50s%-25s%-25s\n", "Title", "Director", "Studio", "Note", "MPAA Rating", "Release Date");
-        for(DVD dvd : dvdList){
+        for(Dvd dvd : dvdList){
             System.out.printf("%-35s%-25s%-25s%-50s%-25s%-25s\n", dvd.getTitle(), dvd.getDirector(), dvd.getStudio()
                               , dvd.getNote(), dvd.getMpaaRating(), dvd.getReleaseDate());
         }

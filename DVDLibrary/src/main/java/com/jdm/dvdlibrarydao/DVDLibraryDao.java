@@ -1,6 +1,6 @@
 package com.jdm.dvdlibrarydao;
 
-import com.jdm.dvdlibrary.dto.DVD;
+import com.jdm.dvdlibrary.dto.Dvd;
 import java.util.List;
 
 /**
@@ -8,21 +8,58 @@ import java.util.List;
  * @email  joedmcadams@gmail.com
  */
 
-public interface DVDLibraryDao {
+public interface DvdLibraryDao {
+    /**
+     * 
+     * @throws DvdLibraryDaoException 
+     */
+    public void loadDvdMap() throws DvdLibraryDaoException;
     
-    public void loadDVDMap() throws DVDLibraryDaoException;
+    /**
+     * 
+     * @throws DvdLibraryDaoException 
+     */
+    public void saveDvdMapToFile() throws DvdLibraryDaoException;
     
-    public void saveDVDMapToFile() throws DVDLibraryDaoException;
+    /**
+     * 
+     * @param dvd 
+     */
+    public void addDvd(Dvd dvd);
     
-    public void addDVD(DVD dvd);
+    /**
+     * 
+     * @param dvdName
+     * @return 
+     */
+    public Dvd removeDvd(String dvdName);
     
-    public DVD removeDVD(String dvdTitle);
+    /**
+     * 
+     * @param dvdName
+     * @param field
+     * @param updatedInfo
+     * @return 
+     */
+    public boolean editDvd(String dvdName, int field, String updatedInfo);
     
-    public boolean editDVD(String dvdName, int field, String updatedInfo);
+    /**
+     * 
+     * @return 
+     */
+    public List<Dvd> getDvdList();
     
-    public List<DVD> getDVDList();
+    /**
+     * 
+     * @param dvdName
+     * @return 
+     */
+    public Dvd getDvdInfo(String dvdName);
     
-    public DVD getDVDInfo(String dvdName);
-    
-    public boolean searchForDVD(String dvdName);
+    /**
+     * 
+     * @param dvdName
+     * @return 
+     */
+    public boolean searchForDvd(String dvdName);
 }

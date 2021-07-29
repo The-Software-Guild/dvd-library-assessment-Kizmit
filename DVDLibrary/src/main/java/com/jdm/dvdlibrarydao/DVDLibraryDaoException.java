@@ -5,12 +5,12 @@ package com.jdm.dvdlibrarydao;
  * @email joedmcadams@gmail.com 
  */
 
-public class DVDLibraryDaoException extends Exception{
-    public DVDLibraryDaoException(String message){
+public class DvdLibraryDaoException extends Exception{
+    public DvdLibraryDaoException(String message){
         super(message);
     }
     
-    public DVDLibraryDaoException(String message, Throwable cause){
+    public DvdLibraryDaoException(String message, Throwable cause){
         super(message, cause);
     }
 }

@@ -5,10 +5,10 @@ package com.jdm.dvdlibrary.dto;
  * @email joedmcadams@gmail.com
  */
 
-public class DVD {
+public class Dvd {
     private String title, director, studio, note, mpaaRating, releaseDate;
     
-    public DVD(String title, String director, String studio, 
+    public Dvd(String title, String director, String studio, 
             String note, String mpaaRating, String releaseDate){
         this.title = title;
         this.director = director;
@@ -21,7 +21,6 @@ public class DVD {
     public String getTitle(){
         return this.title;
     }
-    
     public void setTitle(String title){
        this.title = title;
     }
@@ -29,7 +28,6 @@ public class DVD {
     public String getDirector(){
         return this.director;
     }
-    
     public void setDirector(String director){
         this.director = director;
     }
@@ -37,7 +35,6 @@ public class DVD {
     public String getStudio(){
         return this.studio;
     }
-    
     public void setStudio(String studio){
         this.studio = studio;
     }
@@ -45,7 +42,6 @@ public class DVD {
     public String getNote(){
         return this.note;
     }
-    
     public void setNote(String note){
         this.note = note;
     }
@@ -53,7 +49,6 @@ public class DVD {
     public String getMpaaRating(){
         return this.mpaaRating;
     }
-    
     public void setMpaaRating(String mpaaRating){
         this.mpaaRating = mpaaRating;
     }
@@ -61,7 +56,6 @@ public class DVD {
     public String getReleaseDate(){
         return this.releaseDate;
     }
-    
     public void setReleaseDate(String releaseDate){
         this.releaseDate = releaseDate;
     }

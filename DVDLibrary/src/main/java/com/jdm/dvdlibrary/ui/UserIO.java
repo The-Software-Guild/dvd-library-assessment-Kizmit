@@ -6,9 +6,25 @@ package com.jdm.dvdlibrary.ui;
  */
 
 public interface UserIO {
+    /**
+     * 
+     * @param msg 
+     */
     void print(String msg);
     
+    /**
+     * 
+     * @param prompt
+     * @param min
+     * @param max
+     * @return 
+     */
     int readInt(String prompt, int min, int max);
     
+    /**
+     * 
+     * @param prompt
+     * @return 
+     */
     String readString(String prompt);
 }

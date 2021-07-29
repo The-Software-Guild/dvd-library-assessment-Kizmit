@@ -1,11 +1,11 @@
 package com.jdm.dvdlibrary;
 
-import com.jdm.dvdlibrary.controller.DVDLibraryController;
-import com.jdm.dvdlibrary.ui.DVDLibraryView;
+import com.jdm.dvdlibrary.controller.DvdLibraryController;
+import com.jdm.dvdlibrary.ui.DvdLibraryView;
 import com.jdm.dvdlibrary.ui.UserIO;
 import com.jdm.dvdlibrary.ui.UserIOConsoleImpl;
-import com.jdm.dvdlibrarydao.DVDLibraryDao;
-import com.jdm.dvdlibrarydao.DVDLibraryDaoFileImpl;
+import com.jdm.dvdlibrarydao.DvdLibraryDaoFileImpl;
+import com.jdm.dvdlibrarydao.DvdLibraryDao;
 
 /**
  * @author  Joe McAdams
@@ -16,9 +16,9 @@ import com.jdm.dvdlibrarydao.DVDLibraryDaoFileImpl;
 public class App {
     public static void main(String[] args){
         UserIO io = new UserIOConsoleImpl();
-        DVDLibraryView view = new DVDLibraryView(io);
-        DVDLibraryDao dao = new DVDLibraryDaoFileImpl();
-        DVDLibraryController controller = new DVDLibraryController(dao, view);
+        DvdLibraryView view = new DvdLibraryView(io);
+        DvdLibraryDao dao = new DvdLibraryDaoFileImpl();
+        DvdLibraryController controller = new DvdLibraryController(dao, view);
         controller.run();
     }
 }
