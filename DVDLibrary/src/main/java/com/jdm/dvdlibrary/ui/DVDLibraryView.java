@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.jdm.dvdlibrary.ui;
 
 import com.jdm.dvdlibrary.dto.DVD;
-import com.jdm.dvdlibrarydao.DVDLibraryDaoException;
+
 import java.util.List;
 
 /**
@@ -16,6 +10,7 @@ import java.util.List;
  * @email joedmcadams@gmail.com
  * 
  */
+
 public class DVDLibraryView {
     private final UserIO io;
     
@@ -36,58 +31,53 @@ public class DVDLibraryView {
     }
     
     public void printMenuBanner(){
-        System.out.println("=======Menu=======");
+        System.out.println("=============MENU=============");
     }
 
     public void printAddDVDBanner() {
         System.out.println("=======ENTER DVD DETAILS=======");
     }
-    
-    public void printAddDVDSuccessBanner() {
-        System.out.println("=======DVD ADDED=======");
+    public void printAddDVDSuccess() {
+        System.out.println("The DVD was successfully added to the collection.");
     }
     
     public void printViewLibraryBanner() {
-        System.out.println("=======DVD LIBRARY=======");
+        System.out.println("==========DVD LIBRARY==========");
     }
     
     public void printRemoveDVDBanner() {
-        System.out.println("=======DVD REMOVAL=======");
+        System.out.println("==========DVD REMOVAL==========");
     }
-
     public void printRemoveSuccess(DVD removedDvd){
-        System.out.println("DVD \"" + removedDvd.getTitle() + "\" removed");
+        System.out.println("DVD \"" + removedDvd.getTitle() + "\" removed.");
+    }
+    public void printRemoveFailure() {
+        System.out.println("Failed to remove entry; it doesn't exist in the collection.");
     }
     
     public void printEditDVDBanner() {
-        System.out.println("=======DVD EDITOR=======");
+        System.out.println("==========DVD EDITOR==========");
     }
-    
     public void printEditDVDSuccess() {
         System.out.println("DVD field updated successfully.");
     }
-    
     public void printEditDVDFailure() {
         System.out.println("Edit failed: The DVD you wish to update doesn't exist.");
     }
     
     public void printSearchBanner(){
-        System.out.println("=======SEARCHING=======");
+        System.out.println("==========SEARCHING==========");
     }
-    
-    public void printSearchSucces(boolean found) {
-        if(found) {
-            System.out.println("The DVD was found in the collection.");
-        }
-        else{
-            System.out.println("The DVD was not found in the collection.");
-        }
+    public void printSearchSucces() {
+        System.out.println("The DVD was found in the collection.");
+    }
+    public void printSearchFailure() {
+        System.out.println("No DVD with that name exists in the collection.");
     }
     
     public void printGetDVDInfoBanner() {
-        System.out.println("=======GETTING DVD INFORMATION=======");
+        System.out.println("=====GETTING DVD INFORMATION=====");
     }
-    
     public void printDVDInfo(DVD dvd){
         io.print("Title: " + dvd.getTitle());
         io.print("Director: " + dvd.getDirector());
@@ -96,15 +86,15 @@ public class DVDLibraryView {
         io.print("MPAA Rating: " + dvd.getMpaaRating());
         io.print("Release Date: " + dvd.getReleaseDate());
     }
-     /*ORDER OF ELEMENTS FOR TEXTFILE/CONSTRUCTOR:
-    title::director::studio::note::mpaaRating::releaseDate
-    */
+    public void printDVDInfoFailure() {
+        System.out.println("Failed to get information on DVD; it doesn't exist in the collection.");
+    }
+ 
     public DVD createNewDVD(){
         DVD dvd = new DVD(io.readString("Title:"), io.readString("Director:"), io.readString("Studio:")
                           , io.readString("Note:"), io.readString("MPAA Rating:"), io.readString("Release Date:"));
         return dvd;
     }
-
 
     public void printLibraryList(List<DVD> dvdList) {
         System.out.printf("%-35s%-25s%-25s%-50s%-25s%-25s\n", "Title", "Director", "Studio", "Note", "MPAA Rating", "Release Date");
@@ -130,7 +120,6 @@ public class DVDLibraryView {
         int field = io.readInt("Enter the value of the menu choices above: ", 1, 6);
         return field;
     }
-
 
     public String getUpdatedFieldDataFromUser() {
         String newField = io.readString("Enter the new field information to update using: "); //To change body of generated methods, choose Tools | Templates.

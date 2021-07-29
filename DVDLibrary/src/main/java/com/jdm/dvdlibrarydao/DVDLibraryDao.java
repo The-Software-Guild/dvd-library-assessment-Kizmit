@@ -25,5 +25,4 @@ public interface DVDLibraryDao {
     public DVD getDVDInfo(String dvdName);
     
     public boolean searchForDVD(String dvdName);
-
 }

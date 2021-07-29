@@ -72,7 +72,7 @@ public class DVDLibraryController {
         view.printAddDVDBanner();
         DVD newDvd = view.createNewDVD();
         dao.addDVD(newDvd);
-        view.printAddDVDSuccessBanner();
+        view.printAddDVDSuccess();
     }
 
     private void editEntry(){
@@ -90,9 +90,16 @@ public class DVDLibraryController {
 
     private void removeDVD(){
         view.printRemoveDVDBanner();
-        String dvdTitle = view.getTitleFromUser();
-        DVD removedDvd = dao.removeDVD(dvdTitle);
-        view.printRemoveSuccess(removedDvd);
+        String dvdTitle;
+        boolean contains = dao.searchForDVD(dvdTitle = view.getTitleFromUser());
+        if(contains){
+            DVD removedDvd = dao.removeDVD(dvdTitle);
+            view.printRemoveSuccess(removedDvd);
+        }
+        else{
+            view.printRemoveFailure();
+        }
+        
     }
 
     private void viewLibrary() {
@@ -103,14 +110,26 @@ public class DVDLibraryController {
 
     private void getDVDInfo(){
         view.printGetDVDInfoBanner();
-        DVD dvd = dao.getDVDInfo(view.getTitleFromUser());
-        view.printDVDInfo(dvd);
+        String dvdTitle;
+        boolean contains = dao.searchForDVD(dvdTitle = view.getTitleFromUser());
+        if(contains){
+            DVD dvd = dao.getDVDInfo(dvdTitle);
+            view.printDVDInfo(dvd);
+        }
+        else{
+            view.printDVDInfoFailure();
+        }
     }
 
     private void searchForDVD(){
         boolean found = false;
-        view.printSearchBanner();
         found = dao.searchForDVD(view.getTitleFromUser());
-        view.printSearchSucces(found);
+        view.printSearchBanner();
+        if(found){
+            view.printSearchSucces();
+        }
+        else{
+            view.printSearchFailure();
+        }
     }
 }
