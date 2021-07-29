@@ -20,6 +20,5 @@ public class App {
         DVDLibraryDao dao = new DVDLibraryDaoFileImpl();
         DVDLibraryController controller = new DVDLibraryController(dao, view);
         controller.run();
-        
     }
 }
