@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.jdm.dvdlibrarydao;
 
 import com.jdm.dvdlibrary.dto.DVD;
@@ -20,11 +14,10 @@ import java.util.Map;
 import java.util.Scanner;
 
 /**
- *
  * @author Joe McAdams
  * @email joedmcadams@gmail.com
- * 
  */
+
 public class DVDLibraryDaoFileImpl implements DVDLibraryDao{
     public static final String DVD_LIBRARY_FILE = "DVDLibrary.txt";
     public static final String DELIMITER = "::";

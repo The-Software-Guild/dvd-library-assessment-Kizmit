@@ -8,11 +8,11 @@ import com.jdm.dvdlibrarydao.DVDLibraryDao;
 import com.jdm.dvdlibrarydao.DVDLibraryDaoFileImpl;
 
 /**
- *
- * @author Joe McAdams
- * @email joedmcadams@gmail.com
- * 
+ * @author  Joe McAdams
+ * @email   joedmcadams@gmail.com
+ * @purpose DVD collection program for 2nd MThree Java bootcamp assessment
  */
+
 public class App {
     public static void main(String[] args){
         UserIO io = new UserIOConsoleImpl();

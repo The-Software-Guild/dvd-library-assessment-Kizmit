@@ -1,13 +1,10 @@
 package com.jdm.dvdlibrary.dto;
 
-
-
 /**
- *
  * @author Joe McAdams
  * @email joedmcadams@gmail.com
- * 
  */
+
 public class DVD {
     private String title, director, studio, note, mpaaRating, releaseDate;
     

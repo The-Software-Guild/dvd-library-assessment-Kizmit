@@ -2,18 +2,15 @@ package com.jdm.dvdlibrary.controller;
 
 import com.jdm.dvdlibrary.dto.DVD;
 import com.jdm.dvdlibrary.ui.DVDLibraryView;
-import com.jdm.dvdlibrary.ui.UserIO;
-import com.jdm.dvdlibrary.ui.UserIOConsoleImpl;
 import com.jdm.dvdlibrarydao.DVDLibraryDao;
 import com.jdm.dvdlibrarydao.DVDLibraryDaoException;
 import java.util.List;
 
 /**
- *
  * @author Joe McAdams
  * @email joedmcadams@gmail.com
- * 
  */
+
 public class DVDLibraryController {
     private DVDLibraryDao dao;
     private DVDLibraryView view;
@@ -63,7 +60,7 @@ public class DVDLibraryController {
         }
     }
 
-    private int getMenuSelection() {
+    private int getMenuSelection(){
         view.printMenuBanner();
         return view.printMenuGetSelection();
     }
@@ -109,11 +106,11 @@ public class DVDLibraryController {
     }
 
     private void getDVDInfo(){
-        view.printGetDVDInfoBanner();
         String dvdTitle;
         boolean contains = dao.searchForDVD(dvdTitle = view.getTitleFromUser());
+        DVD dvd = dao.getDVDInfo(dvdTitle);
         if(contains){
-            DVD dvd = dao.getDVDInfo(dvdTitle);
+            view.printGetDVDInfoBanner();
             view.printDVDInfo(dvd);
         }
         else{

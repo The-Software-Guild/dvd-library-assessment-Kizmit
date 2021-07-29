@@ -4,10 +4,10 @@ import com.jdm.dvdlibrary.dto.DVD;
 import java.util.List;
 
 /**
- *
  * @author Joe McAdams
  * @email  joedmcadams@gmail.com
  */
+
 public interface DVDLibraryDao {
     
     public void loadDVDMap() throws DVDLibraryDaoException;
