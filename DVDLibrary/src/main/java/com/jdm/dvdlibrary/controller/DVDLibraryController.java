@@ -3,8 +3,9 @@ package com.jdm.dvdlibrary.controller;
 import com.jdm.dvdlibrary.dto.Dvd;
 import com.jdm.dvdlibrary.ui.DvdLibraryView;
 import com.jdm.dvdlibrarydao.DvdLibraryDaoException;
-import java.util.List;
 import com.jdm.dvdlibrarydao.DvdLibraryDao;
+
+import java.util.List;
 
 /**
  * @author Joe McAdams
