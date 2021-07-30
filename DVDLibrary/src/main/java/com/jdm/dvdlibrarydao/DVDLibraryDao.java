@@ -63,10 +63,10 @@ public interface DvdLibraryDao {
     public Dvd getDvdInfo(String dvdName);
     
     /**
-     * Queries dvdLibrary hashmap with key parameter dvdName and returns true
-     * if an entry exists or false if not.
+     * Queries dvdLibrary hashmap with key parameter dvdName and returns a
+     * Dvd object if one exists, otherwise it returns a null object.
      * @param dvdName
      * @return boolean
      */
-    public boolean searchForDvd(String dvdName);
+    public Dvd searchForDvd(String dvdName);
 }

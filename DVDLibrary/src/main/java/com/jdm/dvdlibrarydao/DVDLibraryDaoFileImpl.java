@@ -122,9 +122,8 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao{
     }
 
     @Override
-    public boolean searchForDvd(String dvdTitle) {
-        boolean found = dvdLibrary.containsKey(dvdTitle);
-        return found;
+    public Dvd searchForDvd(String dvdTitle) {
+         return dvdLibrary.get(dvdTitle);
     }
     
     /*ORDER OF ELEMENTS FOR TEXTFILE:

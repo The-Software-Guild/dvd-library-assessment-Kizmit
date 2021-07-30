@@ -19,7 +19,6 @@ public class App {
         DvdLibraryView view = new DvdLibraryView(io);                           //View injected with input/output object
         DvdLibraryDao dao = new DvdLibraryDaoFileImpl();                        //Data access object
         DvdLibraryController controller = new DvdLibraryController(dao, view);  //Controller object injected with dao and view
-        
         controller.run();                                                       //Run main program logic
     }
 }

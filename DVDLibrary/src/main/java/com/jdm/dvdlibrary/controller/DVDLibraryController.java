@@ -69,16 +69,15 @@ public class DvdLibraryController {
 
     private void addDvd(){
         view.printAddDvdBanner();
-        Dvd newDvd = view.createDvd();
-        dao.addDvd(newDvd);
+        dao.addDvd(view.createDvd());
         view.printAddDvdSuccess();
     }
 
     private void editEntry(){
         view.printEditDvdBanner();
         String dvdTitle;
-        boolean contains = dao.searchForDvd(dvdTitle = view.getTitleFromUser());
-        if(contains){
+        Dvd dvd = dao.searchForDvd(dvdTitle = view.getTitleFromUser());
+        if(dvd != null){
             dao.editDvd(dvdTitle, view.getFieldFromUser(), view.getUpdatedFieldDataFromUser());
             view.printEditDvdSuccess();
         }
@@ -90,8 +89,8 @@ public class DvdLibraryController {
     private void removeDvd(){
         view.printRemoveDvdBanner();
         String dvdTitle;
-        boolean contains = dao.searchForDvd(dvdTitle = view.getTitleFromUser());
-        if(contains){
+        Dvd dvd = dao.searchForDvd(dvdTitle = view.getTitleFromUser());
+        if(dvd != null){
             Dvd removedDvd = dao.removeDvd(dvdTitle);
             view.printRemoveSuccess(removedDvd);
         }
@@ -108,11 +107,9 @@ public class DvdLibraryController {
     }
 
     private void getDvdInfo(){
-        String dvdTitle;
         view.printGetDvdInfoBanner();
-        boolean contains = dao.searchForDvd(dvdTitle = view.getTitleFromUser());
-        Dvd dvd = dao.getDvdInfo(dvdTitle);
-        if(contains){
+        Dvd dvd = dao.getDvdInfo(view.getTitleFromUser());
+        if(dvd != null){
             view.printDvdInfo(dvd);
         }
         else{
@@ -121,11 +118,12 @@ public class DvdLibraryController {
     }
 
     private void searchForDvd(){
-        boolean found;
+        
         view.printSearchBanner();
-        found = dao.searchForDvd(view.getTitleFromUser());
-        if(found){
+        Dvd dvd = dao.searchForDvd(view.getTitleFromUser());
+        if(dvd != null){
             view.printSearchSucces();
+            view.printDvdInfo(dvd);
         }
         else{
             view.printSearchFailure();
