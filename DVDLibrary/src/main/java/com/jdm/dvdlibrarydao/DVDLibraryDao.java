@@ -10,19 +10,19 @@ import java.util.List;
 
 public interface DvdLibraryDao {
     /**
-     * Loads all lines of DVD data from an input textfile into the dvdLibrary hashmap on program start using
+     * Loads all lines of Dvd data from an input textfile into the dvdLibrary hashmap using
      * the title of the DVD as the key. Throws an IOException wrapped as a DvdLibraryDaoException
      * if file reading cannot take place.
      * @throws DvdLibraryDaoException 
      */
-    public void loadDvdMap() throws DvdLibraryDaoException;
+    public void loadDvdLibrary() throws DvdLibraryDaoException;
     
     /**
      * Saves all delimited DVD entry lines into a text file on program close.Throws an IOException 
      * wrapped as a DvdLibraryDaoException if file writing cannot take place.
      * @throws DvdLibraryDaoException 
      */
-    public void saveDvdMapToFile() throws DvdLibraryDaoException;
+    public void saveDvdLibrary() throws DvdLibraryDaoException;
     
     /**
      * Constructs a Dvd object and adds the object to the dvdLibrary hashmap
@@ -32,7 +32,7 @@ public interface DvdLibraryDao {
     public void addDvd(Dvd dvd);
     
     /**
-     * Removes a dvd object specified by the key passed through the paramater
+     * Removes a Dvd object specified by the key passed through the paramater
      * from the dvdLibrary hashmap and returns the object to the caller.
      * @param dvdName
      * @return Dvd
@@ -40,7 +40,7 @@ public interface DvdLibraryDao {
     public Dvd removeDvd(String dvdName);
     
     /**
-     * Edits a dvd object field specified by paramater dvdName and field with
+     * Edits a Dvd object field specified by paramater dvdName and field with
      * data specified by updatedInfo paramater.
      * @param dvdName
      * @param field
@@ -50,13 +50,13 @@ public interface DvdLibraryDao {
     public boolean editDvd(String dvdName, int field, String updatedInfo);
     
     /**
-     * Returns a list of all entries contained in the dvdLibrary hashmap.
+     * Returns a list of all Dvd objects contained in the dvdLibrary hashmap.
      * @return 
      */
     public List<Dvd> getDvdList();
     
     /**
-     * Returns a Dvd object specified by the parameter dvdName
+     * Returns a Dvd object specified by the parameter dvdName.
      * @param dvdName
      * @return Dvd
      */

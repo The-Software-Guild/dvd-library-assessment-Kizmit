@@ -14,7 +14,8 @@ public class UserIOConsoleImpl implements UserIO {
     public void print(String message) {
         System.out.println(message);
     }
-
+    
+    
     @Override
     public String readString(String prompt) {
         System.out.println(prompt);
@@ -48,4 +49,6 @@ public class UserIOConsoleImpl implements UserIO {
 
         return returnInt;
     }
+
+
 }

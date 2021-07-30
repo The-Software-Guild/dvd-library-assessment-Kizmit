@@ -21,7 +21,7 @@ import java.util.Scanner;
 public class DvdLibraryDaoFileImpl implements DvdLibraryDao{
     public static final String DVD_LIBRARY_FILE = "DVDLibrary.txt";
     public static final String DELIMITER = "::";
-    private Map<String, Dvd> dvdLibrary = new HashMap<>();
+    private final Map<String, Dvd> dvdLibrary = new HashMap<>();
     
     @Override
     public void addDvd(Dvd dvd){
@@ -29,7 +29,7 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao{
     }
 
     @Override
-    public void loadDvdMap() throws DvdLibraryDaoException{
+    public void loadDvdLibrary() throws DvdLibraryDaoException{
         Scanner scanner = null;
         
         try{
@@ -53,7 +53,7 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao{
     }
 
     @Override
-    public void saveDvdMapToFile() throws DvdLibraryDaoException{
+    public void saveDvdLibrary() throws DvdLibraryDaoException{
         PrintWriter out = null;
         
         try{
@@ -76,13 +76,14 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao{
     }
 
     @Override
-    public Dvd removeDvd(String dvdName){
-        return dvdLibrary.remove(dvdName);
+    public Dvd removeDvd(String dvdTitle){
+        return dvdLibrary.remove(dvdTitle);
     }
 
     @Override
-    public boolean editDvd(String dvdName, int field, String updatedInfo){
-        Dvd dvd = dvdLibrary.get(dvdName);
+    public boolean editDvd(String dvdTitle, int field, String updatedInfo){
+        Dvd dvd = dvdLibrary.get(dvdTitle);
+        
         switch (field){
             case 1:
                 dvd.setTitle(updatedInfo);
@@ -105,6 +106,7 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao{
             default:
                 break;
         }
+        
         return true;
     }
 
@@ -115,25 +117,27 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao{
     }
 
     @Override
-    public Dvd getDvdInfo(String dvdName){
-        return dvdLibrary.get(dvdName);
+    public Dvd getDvdInfo(String dvdTitle){
+        return dvdLibrary.get(dvdTitle);
     }
 
     @Override
-    public boolean searchForDvd(String dvdName) {
-        boolean found = dvdLibrary.containsKey(dvdName);
+    public boolean searchForDvd(String dvdTitle) {
+        boolean found = dvdLibrary.containsKey(dvdTitle);
         return found;
     }
-
+    
+    /*ORDER OF ELEMENTS FOR TEXTFILE:
+    * title::director::studio::note::mpaaRating::releaseDate
+    */
     public Dvd unmarshallDvd(String dvdAsText) {
         String[] dvdTokens = dvdAsText.split(DELIMITER);
         Dvd dvdFromFile = new Dvd(dvdTokens[0], dvdTokens[1], dvdTokens[2], 
             dvdTokens[3], dvdTokens[4], dvdTokens[5]);
         return dvdFromFile;
     }
-    
-    /*ORDER OF ELEMENTS FOR TEXTFILE/CONSTRUCTOR:
-    title::director::studio::note::mpaaRating::releaseDate
+    /*ORDER OF ELEMENTS FOR TEXTFILE:
+    * title::director::studio::note::mpaaRating::releaseDate
     */
     public String marshallDvd(Dvd dvd)
     {

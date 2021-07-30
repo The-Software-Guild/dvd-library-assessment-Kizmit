@@ -15,10 +15,11 @@ import com.jdm.dvdlibrarydao.DvdLibraryDao;
 
 public class App {
     public static void main(String[] args){
-        UserIO io = new UserIOConsoleImpl();
-        DvdLibraryView view = new DvdLibraryView(io);
-        DvdLibraryDao dao = new DvdLibraryDaoFileImpl();
-        DvdLibraryController controller = new DvdLibraryController(dao, view);
-        controller.run();
+        UserIO io = new UserIOConsoleImpl();                                    //Input/output object
+        DvdLibraryView view = new DvdLibraryView(io);                           //View injected with input/output object
+        DvdLibraryDao dao = new DvdLibraryDaoFileImpl();                        //Data access object
+        DvdLibraryController controller = new DvdLibraryController(dao, view);  //Controller object injected with dao and view
+        
+        controller.run();                                                       //Run main program logic
     }
 }
